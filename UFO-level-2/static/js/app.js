@@ -29,13 +29,38 @@ function runEnter() {
     // Prevent the page from refreshing
     d3.event.preventDefault();
   
-    // Select the input element and get the raw HTML node
-    var inputElement = d3.select("#datetime");
+    // Select the date element and get the raw HTML node
+    var dateElement = d3.select("#datetime");
+    // Get the value property of the date element
+    var dateValue = dateElement.property("value");
 
-    // Get the value property of the input element
-    var inputValue = inputElement.property("value");
+    // Select the city element and get the raw HTML node
+    var cityElement = d3.select("#city");
+    // Get the value property of the city element
+    var cityValue = cityElement.property("value");
 
-    var filteredData = tableData.filter(sighting => sighting.datetime === inputValue);
+    // Select the state element and get the raw HTML node
+    var stateElement = d3.select("#state");
+    // Get the value property of the state element
+    var stateValue = stateElement.property("value");
+
+    // Select the country element and get the raw HTML node
+    var countryElement = d3.select("#country");
+    // Get the value property of the country element
+    var countryValue = countryElement.property("value");
+
+    // Select the shape element and get the raw HTML node
+    var shapeElement = d3.select("#shape");
+    // Get the value property of the country element
+    var shapeValue = shapeElement.property("value");
+    
+    var filteredData = tableData.filter(function(sighting){
+        return sighting.datetime == dateValue
+            || sighting.city == cityValue
+            || sighting.state == stateValue
+            || sighting.country == countryValue
+            || sighting.shape == shapeValue
+    });
 
     // remove any children from the table
     tbody.html("");
@@ -47,6 +72,12 @@ function runEnter() {
             cell.text(value);
         });
     });
+
+    dateElement.property("value", "");
+    cityElement.property("value", "");
+    stateElement.property("value", "");
+    countryElement.property("value", "");
+    shapeElement.property("value", "");
 
   console.log(filteredData);
 };
